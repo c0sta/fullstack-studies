@@ -1,0 +1,11 @@
+/home/gabriel/Workspace/Projetos/fullstack/csharp-fundamentals/gradebook/src/GradeBook/bin/Debug/netcoreapp3.1/GradeBook
+/home/gabriel/Workspace/Projetos/fullstack/csharp-fundamentals/gradebook/src/GradeBook/bin/Debug/netcoreapp3.1/GradeBook.deps.json
+/home/gabriel/Workspace/Projetos/fullstack/csharp-fundamentals/gradebook/src/GradeBook/bin/Debug/netcoreapp3.1/GradeBook.runtimeconfig.json
+/home/gabriel/Workspace/Projetos/fullstack/csharp-fundamentals/gradebook/src/GradeBook/bin/Debug/netcoreapp3.1/GradeBook.runtimeconfig.dev.json
+/home/gabriel/Workspace/Projetos/fullstack/csharp-fundamentals/gradebook/src/GradeBook/bin/Debug/netcoreapp3.1/GradeBook.dll
+/home/gabriel/Workspace/Projetos/fullstack/csharp-fundamentals/gradebook/src/GradeBook/bin/Debug/netcoreapp3.1/GradeBook.pdb
+/home/gabriel/Workspace/Projetos/fullstack/csharp-fundamentals/gradebook/src/GradeBook/obj/Debug/netcoreapp3.1/GradeBook.csprojAssemblyReference.cache
+/home/gabriel/Workspace/Projetos/fullstack/csharp-fundamentals/gradebook/src/GradeBook/obj/Debug/netcoreapp3.1/GradeBook.AssemblyInfoInputs.cache
+/home/gabriel/Workspace/Projetos/fullstack/csharp-fundamentals/gradebook/src/GradeBook/obj/Debug/netcoreapp3.1/GradeBook.AssemblyInfo.cs
+/home/gabriel/Workspace/Projetos/fullstack/csharp-fundamentals/gradebook/src/GradeBook/obj/Debug/netcoreapp3.1/GradeBook.dll
+/home/gabriel/Workspace/Projetos/fullstack/csharp-fundamentals/gradebook/src/GradeBook/obj/Debug/netcoreapp3.1/GradeBook.pdb
