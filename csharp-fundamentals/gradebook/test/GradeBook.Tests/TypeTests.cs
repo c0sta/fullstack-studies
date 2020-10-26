@@ -76,9 +76,9 @@ namespace GradeBook.Tests
 
     }
 
-    private void GetBookSetName(ref Book book, string name)
+    private void GetBookSetName(ref InMemoryBook book, string name)
     {
-        book = new Book(name);
+        book = new InMemoryBook(name);
     }
 
     [Fact]
@@ -102,7 +102,7 @@ namespace GradeBook.Tests
         Assert.NotSame(book1, book2);
     }
    
-    void SetName(Book book, string name)
+    void SetName(InMemoryBook book, string name)
     {
         book.Name = name;
     }
@@ -118,9 +118,9 @@ namespace GradeBook.Tests
     }
         
 
-    Book GetBook(string name)
+    InMemoryBook GetBook(string name)
     {
-        return new Book(name);
+        return new InMemoryBook(name);
     }
 
  

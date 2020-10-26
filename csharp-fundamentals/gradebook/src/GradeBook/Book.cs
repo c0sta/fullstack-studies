@@ -1,16 +1,50 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace GradeBook
 {
-    public class Book
+
+    public class NamedObject
+    {
+        public NamedObject(string name)
+        {
+            Name = name;
+        }
+        public string Name
+        {
+            get;
+            set;
+        }
+    }
+
+    public abstract class Book : NamedObject, IBook
+    {
+        public Book(string name) : base(name)
+        {
+        }
+        public abstract event GradeAddedDelegate GradeAdded;
+        public abstract void AddGrade(double grade);
+        public abstract Statistics GetStatistics();
+    }
+    public interface IBook
+    {
+        public void AddGrade(double grade);
+
+        Statistics GetStatistics();
+        string Name { get; }
+        event GradeAddedDelegate GradeAdded;
+    }
+    public delegate void GradeAddedDelegate(object sender, EventArgs args); 
+    public class InMemoryBook : Book
+    
     {
         public delegate void GradeAddedDelegate(object sender, EventArgs args);
-        public Book(string name)
+        public InMemoryBook(string name) : base(name)
         {
             grades = new List<double>();
-            Name = name;
             category = "";
+
         }
         // Métodos
         public void AddGrade(char letter)
@@ -32,7 +66,7 @@ namespace GradeBook
             }
         }
 
-        public void AddGrade(double grade)
+        public override void AddGrade(double grade)
         {
             if(grade <= 100 && grade > 0)
             {
@@ -40,73 +74,65 @@ namespace GradeBook
                 if(GradeAdded != null)
                 {
                     // sender, eventArgs
-                    GradeAdded(this, new EventArgs());
+                    // GradeAddedDelegate(this, new EventArgs());
                 }
             }
             else {
                 throw new ArgumentException($"{nameof(grade)} inválida");
             }
         }
-        public event GradeAddedDelegate GradeAdded;
+        public override event GradeBook.GradeAddedDelegate GradeAdded;
 
-        public Statistics GetStatistics()
-
+        public override Statistics GetStatistics()
         {
             Statistics result = new Statistics();
-
-            result.High = double.MinValue; // declara o menor valor ṕossível
-
-            result.Low = double.MaxValue; // Declara o maior valor
-
-            for(var index = 0; index < grades.Count; index++ )
+            using(var reader = File.OpenText($"{Name}.txt"))
             {
-                result.High = Math.Max(grades[index], result.High); // Retorna o maior valor entre o "grade" e o "highGrade"
-                result.Low = Math.Min(grades[index], result.Low); // Retorna o menor valor entre o "grade" e o "lowGrade"
-                result.Average += grades[index];
-                // incrementa no index
-            }            
-            result.Average /= grades.Count;
+                var line = reader.ReadLine();
 
-            switch(result.Average)
-            {   
-                case var d when d >= 90.0:
-                    result.Letter = 'A';
-                    break;
-                case var d when d >= 80.0:
-                    result.Letter = 'B';
-                    break;
-                case var d when d >= 70.0:
-                    result.Letter = 'C';
-                    break;
-                case var d when d >= 60.0:
-                    result.Letter = 'D';
-                    break;
-                default:
-                    result.Letter = 'F';
-                    break;
+                while(line != null)
+                {
+                    var number = double.Parse(line);
+                    result.Add(number);
+                    line = reader.ReadLine();
+                }   
+                
+                return result;
             }
+         
 
-            return result;
+            
         }
-
-        public void ShowStatistics(Statistics result) {
-            System.Console.WriteLine($"The average value: {result.Average}");
-            System.Console.WriteLine($"The high value: {result.High}");
-            System.Console.WriteLine($"The low value: {result.Low}");
-            System.Console.WriteLine($"The letter value: {result.Letter}");
-        }
+          
 
         // Atributos
         private List<double> grades;
-
-        private string name;
-        public string Name {
-            get; 
-            set;
-        }
-
         readonly string category = "Ciencia";
 
 
     }
+
+  public class DiskBook : Book
+  {
+      public DiskBook(string name) : base(name)
+       {}
+    public override event GradeAddedDelegate GradeAdded;
+
+    public override void AddGrade(double grade)
+    {
+        using(var writer = File.AppendText($"{Name}.txt"))
+        {
+            writer.WriteLine(grade);
+            if(GradeAdded != null)
+            {   
+                GradeAdded(this, new EventArgs());
+            }
+        }
+    }    
+
+    public override Statistics GetStatistics()
+    {
+      throw new NotImplementedException();
+    }
+  }
 }
